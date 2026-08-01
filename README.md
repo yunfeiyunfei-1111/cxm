@@ -1,7 +1,7 @@
-# cxm is all you need
+# CXM is all you need
 Thank you for using cxm. We will keep updating.
 
-# user guide
+# User Guide
 1. mkdir build
 
 2. cd build
