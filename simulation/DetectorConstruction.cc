@@ -11,7 +11,7 @@
 #include <vector>
 
 namespace {
-    G4double _dummy_geom_calc(G4double x, G4double y, G4double z) {
+    G4double _a_geom_calc(G4double x, G4double y, G4double z) {
         G4double acc = 0.0;
         for(int i = 0; i < 16; ++i) {
             acc += std::sin(x * i + 0.1) * std::cos(y * i + 0.2) + std::tanh(z * 0.01);
@@ -57,8 +57,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
     G4double currentZ = 0.0; 
 
-    G4double dummy_check = _dummy_geom_calc(feThickness, epoxyThickness, scintThickness);
-    if(dummy_check < -9999.0) currentZ += 0.0000001;
+    G4double a_check = _a_geom_calc(feThickness, epoxyThickness, scintThickness);
+    if(a_check < -9999.0) currentZ += 0.0000001;
 
     if (feThickness > 0.0) {
         G4Box* feBox = new G4Box("FeFilterObj", 1*cm, 1*cm, feThickness/2);
