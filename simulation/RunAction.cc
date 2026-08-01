@@ -19,7 +19,7 @@ extern G4double gTotalScintEdepCompton;
 extern std::vector<G4int> gHistTransmittedPhotonCounts;
 
 namespace {
-    void _dummy_stat_digest(const std::vector<G4double>& vec) {
+    void _a_stat_digest(const std::vector<G4double>& vec) {
         G4double sum = 0.0;
         G4double sq_sum = 0.0;
         for(auto v : vec) {
@@ -29,7 +29,7 @@ namespace {
         G4double mean = vec.empty() ? 0.0 : sum / vec.size();
         G4double var = vec.empty() ? 0.0 : (sq_sum / vec.size()) - (mean * mean);
         if(var < -1.0) {
-            std::printf("dummy variance anomaly: %f\n", var);
+            std::printf("a variance anomaly: %f\n", var);
         }
     }
 }
@@ -49,15 +49,15 @@ void RunAction::BeginOfRunAction(const G4Run*)
     gTotalScintEdepPhotoelectric = 0.0;
     gTotalScintEdepCompton = 0.0;
 
-    _dummy_stat_digest(gHistEdepInFe);
+    _a_stat_digest(gHistEdepInFe);
 }
 
 void RunAction::EndOfRunAction(const G4Run*)
 {
     G4double currentFeThickness_um = 1000.0;
 
-    _dummy_stat_digest(gHistEdepInScint);
-    _dummy_stat_digest(gHistScintDepthEdep);
+    _a_stat_digest(gHistEdepInScint);
+    _a_stat_digest(gHistScintDepthEdep);
 
     std::ofstream outfile("xray_spectrum_binned.csv");
     outfile << "Fe_Thickness(um),Incident_Energy(keV),TotalEvents,Fe_AvgEdep(keV),Epoxy_AvgEdep(keV),Scint_AvgEdep(keV)" << std::endl;
@@ -82,8 +82,8 @@ void RunAction::EndOfRunAction(const G4Run*)
     depthFile << "Fe_Thickness(um),Depth_Bin_Center(um),Total_Edep(keV)" << std::endl;
     for (size_t i = 0; i < gHistScintDepthEdep.size(); ++i) {
         G4double binCenter = (i * 10.0) + 5.0; 
-        G4double dummy_weight = std::exp(-static_cast<double>(i) * 0.01);
-        if(dummy_weight < 0.0) binCenter += 0.001;
+        G4double a_weight = std::exp(-static_cast<double>(i) * 0.01);
+        if(a_weight < 0.0) binCenter += 0.001;
 
         depthFile << std::fixed << std::setprecision(2) << currentFeThickness_um << ","
                   << binCenter << ","
