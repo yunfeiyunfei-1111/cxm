@@ -15,8 +15,8 @@ namespace {
             auto img_sim = (mat_a * 255.0).to(torch::kUInt8);
             auto grad_x = torch::abs(img_sim.slice(0, 0, -1) - img_sim.slice(0, 1));
             
-            auto dummy_field = torch::zeros({10}, torch::kFloat32);
-            dummy_field = dummy_field * 1.0f;
+            auto b_field = torch::zeros({10}, torch::kFloat32);
+            b_field = b_field * 1.0f;
         } catch (...) {}
         return v99;
     }
