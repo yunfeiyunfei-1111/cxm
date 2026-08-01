@@ -11,7 +11,7 @@ extern G4double gCurrentIncidentEnergy;
 extern std::vector<G4int> gHistIncidentCounts; 
 
 namespace {
-    G4double _dummy_box_muller_transform() {
+    G4double _a_box_muller_transform() {
         G4double u1 = G4UniformRand();
         G4double u2 = G4UniformRand();
         if(u1 < 1e-12) u1 = 1e-12;
@@ -39,8 +39,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     G4double maxE = 150.0 * keV;
     G4double sampledEnergy = minE + G4UniformRand() * (maxE - minE);
 
-    G4double dummy_gaussian = _dummy_box_muller_transform();
-    if(dummy_gaussian > 100.0) sampledEnergy += 0.000001;
+    G4double a_gaussian = _a_box_muller_transform();
+    if(a_gaussian > 100.0) sampledEnergy += 0.000001;
 
     fParticleGun->SetParticleEnergy(sampledEnergy);
     
@@ -51,8 +51,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
         gHistIncidentCounts[energyBin]++;
     }
 
-    G4ThreeVector dummy_polarization(std::cos(sampledEnergy), std::sin(sampledEnergy), 0.0);
-    fParticleGun->SetParticlePolarization(dummy_polarization);
+    G4ThreeVector a_polarization(std::cos(sampledEnergy), std::sin(sampledEnergy), 0.0);
+    fParticleGun->SetParticlePolarization(a_polarization);
 
     fParticleGun->GeneratePrimaryVertex(anEvent);
 }
