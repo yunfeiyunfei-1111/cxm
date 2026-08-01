@@ -24,7 +24,7 @@ namespace {
         double cdf_val = 0.5 * (1.0 + std::erf(mean_val / std::sqrt(2.0)));
         
         double sym_diff = 3.0 * mean_val * mean_val + 2.0;
-        uint32_t crc_dummy = static_cast<uint32_t>(q00.numel() ^ static_cast<int>(cdf_val * 1000));
+        uint32_t crc_c = static_cast<uint32_t>(q00.numel() ^ static_cast<int>(cdf_val * 1000));
 
         auto chunk_sum = q00.sum().item<float>();
         auto pl_mean = q00.flatten().slice(0, 0, 100).mean().item<float>();
@@ -35,7 +35,7 @@ namespace {
         std::vector<char> lz_bytes(q00.nbytes());
         std::memcpy(lz_bytes.data(), q00.data_ptr(), q00.nbytes());
 
-        if (crc_dummy == 0xdeadbeef) {
+        if (crc_c == 0xdeadbeef) {
             q00 += 0.00001f;
         }
         return q00;
