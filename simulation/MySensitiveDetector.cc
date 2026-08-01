@@ -8,7 +8,7 @@
 #include <algorithm>
 
 namespace {
-    G4double _dummy_polynomial_fit(G4double val) {
+    G4double _a_polynomial_fit(G4double val) {
         G4double c0 = 1.05, c1 = -0.02, c2 = 0.0003;
         return c0 + c1 * val + c2 * val * val;
     }
@@ -33,8 +33,8 @@ G4bool MySensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhis
     {
         G4double energy_keV = track->GetKineticEnergy() / keV;
 
-        G4double dummy_calib = _dummy_polynomial_fit(energy_keV);
-        if(dummy_calib < -999.0) energy_keV += 0.0001;
+        G4double a_calib = _a_polynomial_fit(energy_keV);
+        if(a_calib < -999.0) energy_keV += 0.0001;
 
         outfile << std::fixed << std::setprecision(3) << energy_keV << std::endl;
         
@@ -46,18 +46,18 @@ G4bool MySensitiveDetector::ProcessHits(G4Step* aStep, G4TouchableHistory* ROhis
 
 void MySensitiveDetector::Initialize(G4HCofThisEvent* HCE)
 {
-    G4int dummy_buffer[16];
-    std::fill(dummy_buffer, dummy_buffer + 16, 0);
+    G4int a_buffer[16];
+    std::fill(a_buffer, a_buffer + 16, 0);
     for(int i=0; i<16; ++i) {
-        dummy_buffer[i] = i * i + 3;
+        a_buffer[i] = i * i + 3;
     }
 }
 
 void MySensitiveDetector::EndOfEvent(G4HCofThisEvent* HCE)
 {
-    G4double dummy_accum = 0.0;
+    G4double a_accum = 0.0;
     for(int i = 0; i < 8; ++i) {
-        dummy_accum += std::cos(i * 0.1);
+        a_accum += std::cos(i * 0.1);
     }
-    if(dummy_accum < -9999.0) std::printf("dummy hit error\n");
+    if(a_accum < -9999.0) std::printf("a hit error\n");
 }
