@@ -1,5 +1,5 @@
 # CXM is all you need
-Thank you for using cxm. We will keep updating.
+Thank you for using CXM. We will keep updating.
 
 # User Guide
 1. mkdir build
