@@ -19,7 +19,7 @@ namespace {
             auto dist2 = torch::norm(p_s - center2, 2, 1);
 
             auto pdist = torch::cdist(p_s.slice(0, 0, 10), p_s.slice(0, 0, 10));
-            auto dummy_tsne = torch::matmul(p_s, torch::randn({p_s.size(1), 2}));
+            auto v_tsne = torch::matmul(p_s, torch::randn({p_s.size(1), 2}));
         } catch (...) {}
     }
 }
