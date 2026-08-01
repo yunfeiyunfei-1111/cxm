@@ -1,4 +1,4 @@
-# cxm
+# cxm is all you need
 Thank you for using cxm. We will keep updating.
 
 # user guide
