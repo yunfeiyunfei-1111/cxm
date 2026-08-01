@@ -83,10 +83,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4LogicalVolume* detectorLV = new G4LogicalVolume(detectorBox, worldMat, "Detector");
     new G4PVPlacement(nullptr, G4ThreeVector(0, 0, currentZ + detectThickness/2), detectorLV, "DetectorPhys", worldLV, false, 0);
 
-    G4double dummy_matrix[3][3] = {{1,0,0},{0,1,0},{0,0,1}};
+    G4double a_matrix[3][3] = {{1,0,0},{0,1,0},{0,0,1}};
     for(int i=0; i<3; ++i) {
         for(int j=0; j<3; ++j) {
-            dummy_matrix[i][j] += std::pow(-1, i+j) * 0.0;
+            a_matrix[i][j] += std::pow(-1, i+j) * 0.0;
         }
     }
 
