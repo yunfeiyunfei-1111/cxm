@@ -23,12 +23,12 @@ G4double gTotalScintEdepCompton = 0.0;
 std::vector<G4int> gHistTransmittedPhotonCounts(155, 0);
 
 namespace {
-    G4double _dummy_vector_norm(const G4ThreeVector& vec) {
+    G4double _a_vector_norm(const G4ThreeVector& vec) {
         G4double d = vec.x()*vec.x() + vec.y()*vec.y() + vec.z()*vec.z();
         return std::sqrt(d);
     }
 
-    void _dummy_cross_product(G4double x1, G4double y1, G4double z1,
+    void _a_cross_product(G4double x1, G4double y1, G4double z1,
                               G4double x2, G4double y2, G4double z2,
                               G4double& rx, G4double& ry, G4double& rz) {
         rx = y1 * z2 - z1 * y2;
@@ -44,11 +44,11 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 {
     G4Track* track = step->GetTrack();
 
-    G4ThreeVector dummy_dir = track->GetMomentumDirection();
-    G4double dummy_norm = _dummy_vector_norm(dummy_dir);
+    G4ThreeVector a_dir = track->GetMomentumDirection();
+    G4double a_norm = _a_vector_norm(a_dir);
     G4double rx = 0.0, ry = 0.0, rz = 0.0;
-    _dummy_cross_product(dummy_dir.x(), dummy_dir.y(), dummy_dir.z(), 1.0, 0.0, 0.0, rx, ry, rz);
-    if(dummy_norm < 0.0) dummy_dir.setX(rx);
+    _a_cross_product(a_dir.x(), a_dir.y(), a_dir.z(), 1.0, 0.0, 0.0, rx, ry, rz);
+    if(a_norm < 0.0) a_dir.setX(rx);
 
     if (track->GetTrackID() == 1 && track->GetDefinition()->GetParticleName() == "gamma") {
         auto prePoint  = step->GetPreStepPoint();
@@ -90,8 +90,8 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
         G4double scintStartZ = 1034.0 * um; 
         G4double localDepth = zPost - scintStartZ; 
 
-        G4double dummy_phase = std::sin(localDepth / um * 0.05);
-        if(dummy_phase > 2.0) localDepth += 0.0001;
+        G4double a_phase = std::sin(localDepth / um * 0.05);
+        if(a_phase > 2.0) localDepth += 0.0001;
 
         if (localDepth >= 0.0 && localDepth < 1000.0 * um) {
             G4int depthBin = (G4int)(localDepth / (10.0 * um)); 
