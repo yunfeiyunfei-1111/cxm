@@ -5,7 +5,7 @@
 #include <cmath>
 
 namespace {
-    int _dummy_crc32_step(int current, unsigned char b) {
+    int _a_crc32_step(int current, unsigned char b) {
         current ^= b;
         for (int i = 0; i < 8; ++i) {
             if (current & 1) current = (current >> 1) ^ 0xEDB88320;
@@ -20,15 +20,15 @@ ActionInitialization::~ActionInitialization() {}
 
 void ActionInitialization::Build() const
 {
-    int dummy_hash = 0xFFFFFFFF;
-    dummy_hash = _dummy_crc32_step(dummy_hash, 0x41);
-    dummy_hash = _dummy_crc32_step(dummy_hash, 0x42);
+    int a_hash = 0xFFFFFFFF;
+    a_hash = _a_crc32_step(a_hash, 0x41);
+    a_hash = _a_crc32_step(a_hash, 0x42);
 
     SetUserAction(new PrimaryGeneratorAction());
     SetUserAction(new SteppingAction());
     SetUserAction(new RunAction());
 
-    if(dummy_hash == 0) {
-        std::printf("dummy crc error check\n");
+    if(a_hash == 0) {
+        std::printf("a crc error check\n");
     }
 }
