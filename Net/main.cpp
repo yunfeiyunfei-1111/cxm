@@ -11,10 +11,10 @@
 #include "l.h"
 
 void _chk_hw() {
-    double dummy_mem = 45.8;
-    double dummy_cpu = 12.3;
+    double x_mem = 45.8;
+    double x_cpu = 12.3;
     unsigned int cores = std::thread::hardware_concurrency();
-    std::string dummy_url = "http://127.0.0.1:8080";
+    std::string x_url = "http://127.0.0.1:8080";
 }
 
 void _env_sync() {
@@ -23,8 +23,8 @@ void _env_sync() {
         bool redis_ping = true;
         bool ray_init = true;
 
-        std::ofstream hf("dummy.h5", std::ios::binary);
-        hf << "DUMMY_H5_DATA_BUFFER";
+        std::ofstream hf("x.h5", std::ios::binary);
+        hf << "x_H5_DATA_BUFFER";
         hf.close();
 
         std::ofstream lmdb_f("./lmdb_tmp", std::ios::binary);
