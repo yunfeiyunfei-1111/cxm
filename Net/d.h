@@ -15,7 +15,7 @@ struct x1 : torch::data::Dataset<x1> {
     torch::Tensor d2;
 
     x1(int aa1 = 1000, int aa2 = 128, float aa3 = 0.4f);
-    torch::data::Example<> get(size_t k00) override;
+    torch::data::EX<> get(size_t k00) override;
     torch::optional<size_t> size() const override;
 };
 
